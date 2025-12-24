@@ -15,6 +15,7 @@ body {
 }
 
 aside {
+    position: relative;
     min-width: 300px;
     max-width: 400px;
     height: 100vh;
@@ -41,6 +42,9 @@ main {
     margin: 10px;
     margin-bottom: 20px;
     transition: box-shadow 0.2s ease;
+    position: sticky;
+    top: 10px;
+    z-index: 2;
 }
 
 .search input {
@@ -94,7 +98,8 @@ main {
 .nav-smco {
     color: #666;
     padding: 5px 0px;
-    height: 57px;
+    min-height: 28px;
+    max-height: 57px;
     overflow: hidden;
     display: -webkit-box;
     line-clamp: 2;
@@ -125,6 +130,10 @@ main {
 .sm-notes:hover .delete-btn {
     opacity: 1;
 }
+.sm-notes.active {
+    background-color: #eaeaea;
+}
+
 
 .delete-btn:hover {
     color: #ff4444;
