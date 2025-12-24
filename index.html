@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <aside>
+        <div class="search">
+            <span class="material-symbols-outlined">search</span>
+            <input type="search" placeholder="Search notes...">
+        </div>
+        <button class="new-note-btn" id="newNoteBtn">
+            <span class="material-symbols-outlined">add</span>
+            New Note
+        </button>
+        <section class="index">
+        </section>
+    </aside>
+    <main>
+        <section class="notes">
+            <div class="note">
+                <input type="text" placeholder="Note title...">
+                <div class="textarea" contenteditable="true" data-placeholder="Start writing your note..."></div>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
