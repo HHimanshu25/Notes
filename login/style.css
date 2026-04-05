@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    scrollbar-width: none;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background: black;
+}
+
+/* FIX 1: Remove horizontal scroll dependency */
+.container {
+    display: flex;
+    flex-direction: column;   /* stack instead of scroll */
+    width: 100%;
+}
+
+/* FIX 2: Full mobile width */
+.login,
+.signup {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Headings */
+.login-head,
+.signup-head {
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding-top: 40px;
+}
+
+/* Inputs container */
+.login-input,
+.signup-input {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    gap: 10px;   /* FIX: spacing instead of margin hacks */
+}
+
+/* Inputs */
+input {
+    outline: none;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.459);
+    border-radius: 10px;
+    transition: 0.3s;
+    width: 100%;
+}
+
+/* Focus effect */
+input:focus {
+    border: 1px solid transparent;
+    border-image: linear-gradient(to bottom, #00d9ff, #0055ff) 1;
+}
+
+/* Error text */
+.log-inemail {
+    font-size: 0.8rem;
+    color: red;
+}
+
+/* Forgot password */
+.fopass {
+    background: none;
+    border: none;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Buttons */
+.login-butt,
+.signup-butt {
+    width: 100%;
+    background-color: blue;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+/* Bottom section */
+.sign-bottom,
+.log-bottom {
+    margin-top: auto;   /* FIX: pushes to bottom naturally */
+    padding-bottom: 20px;
+}
+
+/* Switch text */
+.log-sign,
+.sign-log {
+    font-size: 0.8rem;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.log-sign span,
+.sign-log span {
+    color: rgba(0, 132, 255, 0.878);
+}
+
+/* Password strength */
+.strength {
+    font-size: 0.7rem;
+    text-align: right;
+}

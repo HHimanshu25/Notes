@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="head">
+            <span class="material-symbols-outlined menu-acces">menu</span>
+            <div class="app_name">Notes</div>
+            <div class="logo"></div>
+        </div>
+        <div class="search">
+            <span class="material-symbols-outlined">search</span>
+            <input type="search" onchange="search()" placeholder="Search" class="search_bar" >
+        </div>
+    </header>
+    <aside class="aside ">
+        <div class="menu ">
+            <div class="profile">
+                <div class="profile-logo"></div>
+                <div class="profile-detail">
+                    <div class="user-name">Himanshu</div>
+                    <button class="profile-manage">view profile</button>
+                </div>
+            </div>
+            <ul class="note-list">
+                <li><span class="material-symbols-outlined">notes</span>All Notes</li>
+                <li><span class="material-symbols-outlined">work</span>Work</li>
+                <li><span class="material-symbols-outlined">lightbulb</span>Idea</li>
+                <li><span class="material-symbols-outlined">Favorite</span>Favorites</li>
+                <li><span class="material-symbols-outlined">delete</span>Trash</li>
+            </ul>
+            <div class="setting"><span
+                    class="material-symbols-outlined setting-icon">settings</span><span>Setting</span></div>
+        </div>
+    </aside>
+    <nav class="nav">
+        <!-- <div class="folder folder1 active-folder">Notes</div>
+        <div class="folder folder2 " data-id="1">work</div> -->        
+    </nav>
+    <main>
+        <div class="notes-list">
+
+        
+
+        </div>
+
+    </main>
+    <section class="live-note">
+        <div class="current-note">
+            <input type="text" placeholder=".title" class="current-note-title">            
+            <div class="current-note-content" contenteditable="true" data-placeholder=".content"></div> 
+        </div>
+    </section>
+    <footer>
+        <button class="Add-note material-symbols-outlined">add</button>
+    </footer>
+    <script src="app.js"></script>
+    <script src="data.js"></script>
+</body>
+
+</html>

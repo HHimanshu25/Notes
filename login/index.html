@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+    <section class="login ">
+
+        <header class="login-head">Ready to get productive? Login</header>
+        <div class="login-input">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email address">
+            <span class="log-inemail">Invalid email address</span>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" onclick="login()">
+
+            <button class="fopass">Forgot Password?</button>
+        </div>
+        <div class="log-bottom">
+            <button class="login-butt" onclick="login()">Login</button>
+            <div class="log-sign">Don't have an account? <span onclick="toggleScroll()">Sign Up</span></div>
+        </div>
+    </section>
+    <section class="signup">
+
+        <header class="signup-head">Begin your notes taking adventure with us! Sign UP</header>
+        <div class="signup-input">
+
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username" placeholder="Name">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email address">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">
+            <div class="strength">Strength:<span>--</span></div>
+        </div>
+        <div class="sign-bottom">
+            <button class="signup-butt">Sign Up</button>
+            <div class="sign-log">Already have an account? <span onclick="toggleScroll()">Login</span></div>
+        </div>
+    </section>
+</body>
+
+</html>
