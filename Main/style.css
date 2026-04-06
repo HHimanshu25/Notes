@@ -1,3 +1,23 @@
+:root {
+        --bg-main: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: #334155;
+
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+
+        --accent: #3b82f6;
+        --accent-hover: #2563eb;
+
+        --border: rgba(255, 255, 255, 0.05);
+
+        --radius: 20px;
+        --radius-small: 10px;
+
+        --transition: 0.3s ease;
+}
+
 * {
         margin: 0;
         padding: 0;
@@ -11,7 +31,7 @@ html {
 }
 
 body {
-        background-color: #0f172a;
+        background-color: var(--bg-main);
         width: 100%;
         padding: 20px;
         height: 100vh;
@@ -23,14 +43,14 @@ body {
 }
 
 .search {
-        background-color: #334155;
+        background-color: var(--bg-card);
         ;
         padding: 15px;
         padding-left: 20px;
         border-radius: 50px;
         width: 100%;
         font-size: 1rem;
-        color: white;
+        color: var(--text-primary);
         display: flex;
         align-items: center;
         gap: 20px;
@@ -41,7 +61,7 @@ body {
         background-color: transparent;
         border: none;
         flex: 1;
-        color: white;
+        color: var(--text-primary);
 }
 
 :focus {
@@ -49,7 +69,7 @@ body {
 }
 
 ::placeholder {
-        color: white;
+        color: var(--text-muted);
 
 }
 
@@ -91,10 +111,9 @@ nav {
 }
 
 .folder {
-        background-color: #334155;
-        ;
+        background-color: var(--bg-card);
         padding: 10px;
-        border-radius: 10px;
+        border-radius: var(--radius-small);
 }
 
 main {
@@ -117,21 +136,21 @@ main {
         flex-direction: column;
         gap: 8px;
         align-items: start;
-        background-color: #1e293b;
-        border-radius: 20px;
+        background-color: var(--bg-secondary);
+        border-radius: var(--radius);
         padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
 }
 
 .note-title {
         font-size: 1.6rem;
-        color: #f1f5f9;
+        color: var(--text-primary);
         word-wrap: break-word;
 }
 
 .note-content {
         font-size: 1rem;
-        color: #cbd5e1;
+        color: var(--text-secondary);
         display: -webkit-box;
         -webkit-line-clamp: 2;
         line-clamp: 2;
@@ -142,7 +161,7 @@ main {
 
 .note-date {
         font-size: 0.8rem;
-        color: #94a3b8;
+        color: var(--text-muted);
         ;
 }
 
@@ -152,7 +171,7 @@ footer {
 
 
 .active-folder {
-        background-color: #3b82f6;
+        background-color: var(--accent);
 }
 
 aside {
@@ -173,7 +192,7 @@ aside {
 }
 
 .menu {
-        background-color: rgb(0, 18, 42);
+        background-color: var(--bg-secondary);
         width: 320px;
         height: 100%;
         color: white;
@@ -191,7 +210,7 @@ aside {
         gap: 30px;
         padding: 10px 20px;
         border-radius: 25px;
-        background-color: rgba(0, 39, 42, 0.418);
+        background-color: rgba(0, 39, 42, 0.4);
 }
 
 .profile-logo {
@@ -219,25 +238,22 @@ aside {
         gap: 10px;
         list-style-type: none;
         padding: 20px 0;
-        box-shadow: 0 1px rgba(128, 128, 128, 0.39);
+        box-shadow: 0 1px rgba(128, 128, 128, 0.39); 
         padding-bottom: 50px;
+}
 
-        li {
-                display: flex;
-                align-items: center;
-                justify-content: start;
-                gap: 10px;
-                font-size: 1.5rem;
-                padding: 10px;
+.note-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.5rem;
+        padding: 10px;
+        margin: 0 10px;
+}
 
-                margin: 0 10px;
-        }
-
-        :hover {
-                background-color: #1e293b;
-                border-radius: 15px;
-
-        }
+.note-list li:hover {
+        background-color: var(--bg-card);
+        border-radius: 15px;
 }
 
 .setting {
@@ -263,7 +279,7 @@ aside {
         border-radius: 50%;
         border: none;
 
-        background-color: #3b82f6;
+        background-color: var(--accent);
         color: white;
 
         font-size: 2rem;
@@ -274,28 +290,23 @@ aside {
         cursor: pointer;
 
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
+        transition: var(--transition);
         z-index: 2;
 }
 
+.Add-note:hover {
+        background-color: var(--accent-hover);
+}
 
 .cross {
         transform: rotate(45deg);
 
 }
 
-
-
-
-
-
-
-
-
 .live-note {
         width: 100%;
         height: 100vh;
-        background-color: rgb(0, 18, 42);
+        background-color: var(--bg-secondary);
         position: absolute;
         top: 0;
         right: 100%;
@@ -308,14 +319,14 @@ aside {
 }
 
 .current-note {
-        background-color: rgba(0, 39, 42, 0.418);
+        background-color: rgba(0, 39, 42, 0.4);
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         gap: 30px;
         padding: 20px;
-        border-radius: 25px;
+        border-radius: var(--radius);
 
 }
 
@@ -328,8 +339,10 @@ aside {
         color: white;
         flex: 0;
         word-break: break-all;
-        
-}::placeholder{
+
+}
+
+::placeholder {
         color: rgba(255, 255, 255, 0.359);
 }
 
@@ -348,6 +361,14 @@ aside {
         /* don’t block typing */
 }
 
+.note {
+    transition: var(--transition);
+}
+
+.note:hover {
+    transform: translateY(-2px);
+}
+
 
 
 
@@ -362,40 +383,51 @@ aside {
 
 
 @media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
 
-        body {
-                padding: 10px;
-        }
+    .app_name {
+        font-size: 1.5rem;
+    }
 
-        .app_name {
-                font-size: 1.5rem;
-        }
+    .search {
+        padding: 10px;
+        gap: 10px;
+    }
 
-        .search {
-                padding: 10px;
-                gap: 10px;
-        }
+    .note {
+        padding: 15px;
+    }
 
-        .note {
-                padding: 15px;
-        }
+    .note-title {
+        font-size: 1.3rem;
+    }
 
-        .note-title {
-                font-size: 1.3rem;
-        }
+    .note-content {
+        font-size: 0.9rem;
+    }
 
-        .note-content {
-                font-size: 0.9rem;
-        }
+    .Add-note {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
 }
 
-@media (min-width: 401px) and (max-width: 768px) {
 
-        .notes-list {
-                gap: 12px;
-        }
+@media (min-width: 401px) and (max-width: 600px) {
+    body {
+        max-width: 480px;
+        margin: 0 auto;
+    }
 
-        .note {
-                padding: 18px;
-        }
+    .notes-list {
+        gap: 12px;
+    }
+
+    .note {
+        padding: 18px;
+    }
 }
+
