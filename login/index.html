@@ -1,51 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Auth</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-    <section class="login ">
+<div class="auth-container">
 
-        <header class="login-head">Ready to get productive? Login</header>
-        <div class="login-input">
+    <!-- LOGIN -->
+    <section class="auth auth-login">    
+        <header class="auth-title">Ready to get productive? Login</header>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Email address">
-            <span class="log-inemail">Invalid email address</span>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password" onclick="login()">
+        <div class="auth-form">
 
-            <button class="fopass">Forgot Password?</button>
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Email address">
+            <span class="error-email">Invalid email address</span>
+
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Password">
+
+            <button class="btn-forgot">Forgot Password?</button>
         </div>
-        <div class="log-bottom">
-            <button class="login-butt" onclick="login()">Login</button>
-            <div class="log-sign">Don't have an account? <span onclick="toggleScroll()">Sign Up</span></div>
-        </div>
-    </section>
-    <section class="signup">
 
-        <header class="signup-head">Begin your notes taking adventure with us! Sign UP</header>
-        <div class="signup-input">
-
-            <label for="username">Name</label>
-            <input type="text" name="username" id="username" placeholder="Name">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Email address">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password">
-            <div class="strength">Strength:<span>--</span></div>
-        </div>
-        <div class="sign-bottom">
-            <button class="signup-butt">Sign Up</button>
-            <div class="sign-log">Already have an account? <span onclick="toggleScroll()">Login</span></div>
+        <div class="auth-footer">
+            <button class="btn-login" onclick="login()">Login</button>
+            <div class="auth-switch">
+                Don't have an account? 
+                <span onclick="toggleScroll()">Sign Up</span>
+            </div>
         </div>
     </section>
+
+
+    <!-- SIGNUP -->
+    <section class="auth auth-signup">
+
+        <header class="auth-title">Begin your notes taking adventure with us! Sign Up</header>
+
+        <div class="auth-form">
+
+            <label for="signup-name">Name</label>
+            <input type="text" id="signup-name" placeholder="Name">
+
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" placeholder="Email address">
+
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="Password">
+
+            <div class="password-strength">
+                Strength: <span>--</span>
+            </div>
+        </div>
+
+        <div class="auth-footer">
+            <button class="btn-signup">Sign Up</button>
+            <div class="auth-switch">
+                Already have an account? 
+                <span onclick="toggleScroll()">Login</span>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+<script src="login.js"></script>
 </body>
-
 </html>
