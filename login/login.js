@@ -62,7 +62,7 @@ function login(event) {
 
     // check email exists
     let findemail = user.find(u => u.email === emailvalue)
-
+console.log(findemail);
     if (!findemail) {
         emailError.classList.remove('error-hide')
         emailError.textContent = 'Email not found'
@@ -126,3 +126,37 @@ document.querySelector('.auth-switch-signup').children[0].addEventListener('clic
         behavior: "smooth"
     });
 })
+
+let strShow = document.querySelector('.password-strength').children[0]
+function passwordCheck() {
+    let password = document.getElementById('signup-password').value
+
+    let strength = 0;
+
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9)]/.test(password)) strength++;
+    console.log(strength);
+
+    strShow.textContent = strength * 20+ "%";
+    
+    if (strength <= 1) {
+        strShow.style.color = "red";
+    } 
+    else if (strength <= 2) {
+        strShow.style.color = "orangered";
+    } 
+    else if (strength <= 3) {
+        strShow.style.color = "orange";
+    } 
+    else if (strength <= 4) {
+        strShow.style.color = "yellowgreen";
+    } 
+    else {
+        strShow.style.color = "green";
+    }
+    
+    
+}
