@@ -14,15 +14,14 @@ body {
 }
 
 /* FIX 1: Remove horizontal scroll dependency */
-.container {
+.auth-container {
     display: flex;
     flex-direction: column;   /* stack instead of scroll */
     width: 100%;
 }
 
 /* FIX 2: Full mobile width */
-.login,
-.signup {
+.auth{
     width: 100%;
     min-height: 100vh;
     padding: 20px;
@@ -32,16 +31,15 @@ body {
 }
 
 /* Headings */
-.login-head,
-.signup-head {
+
+.auth-title {
     font-size: 1.8rem;
     font-weight: 500;
     padding-top: 40px;
 }
 
 /* Inputs container */
-.login-input,
-.signup-input {
+.auth-form {
     display: flex;
     flex-direction: column;
     padding-top: 30px;
@@ -67,13 +65,13 @@ input:focus {
 }
 
 /* Error text */
-.log-inemail {
+.error-email {
     font-size: 0.8rem;
     color: red;
 }
 
 /* Forgot password */
-.fopass {
+.btn-forgot {
     background: none;
     border: none;
     text-align: right;
@@ -81,8 +79,8 @@ input:focus {
 }
 
 /* Buttons */
-.login-butt,
-.signup-butt {
+.btn-login,
+.btn-signup {
     width: 100%;
     background-color: blue;
     border: none;
@@ -93,27 +91,24 @@ input:focus {
 }
 
 /* Bottom section */
-.sign-bottom,
-.log-bottom {
+.auth-footer {
     margin-top: auto;   /* FIX: pushes to bottom naturally */
     padding-bottom: 20px;
 }
 
 /* Switch text */
-.log-sign,
-.sign-log {
+.auth-switch {
     font-size: 0.8rem;
     text-align: center;
     padding-top: 15px;
 }
 
-.log-sign span,
-.sign-log span {
+.auth-switch span {
     color: rgba(0, 132, 255, 0.878);
 }
 
 /* Password strength */
-.strength {
+.password-strength {
     font-size: 0.7rem;
     text-align: right;
 }
