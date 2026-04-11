@@ -4,18 +4,17 @@ import { renderNotes } from "./notes/note.js";
 const app = document.getElementById("app");
 
 // check login state
-// function init() {
-//   const token = localStorage.getItem("token");
+function init() {
+  const token = localStorage.getItem("token");
 
-//   if (token) {
-//     renderNotes(app);
-//   } else {
-//     renderLogin(app);
-//   }
-// }
+  if (token) {
+    renderNotes(app);
+  }
+  else {
+    renderLogin(app);
+  }
+}
 
-// // start app
-// init();
+// start app
+init();
 
-// renderNotes(app)
-renderLogin(app)

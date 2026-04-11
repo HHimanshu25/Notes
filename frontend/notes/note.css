@@ -29,20 +29,20 @@
 /* html {
         height: 100%;
 } */
-
-.app {
+.note-container{
         background-color: var(--bg-main);
         width: 100%;
         padding: 20px;
         height: 100vh;
         display: flex;
         flex-direction: column;
+        padding-bottom: 50px;
+        
 }
 
 .search {
-        background-color: var(--bg-card);
-        ;
-        padding: 15px;
+        background-color: var(--bg-card);        
+        padding: 5px;
         padding-left: 20px;
         border-radius: 50px;
         width: 100%;
@@ -115,17 +115,18 @@ nav {
 
 main {
         flex: 1;
-        overflow-y: scroll;
         scrollbar-width: none;
         margin-top: 20px;
         border-radius: 20px;
         min-height: 0;
+        overflow-y: scroll;
 }
 
-.notes-list {
+.notes-list {           
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: column;        
+        gap: 10px;        
+        height: 100%;
 }
 
 .note {
@@ -142,7 +143,7 @@ main {
 .note-title {
         font-size: 1.6rem;
         color: var(--text-primary);
-        word-wrap: break-word;
+        word-wrap: break-word;        
 }
 
 .note-content {
@@ -196,8 +197,9 @@ aside {
         padding-top: 60px;
         padding-right: 20px;
         border-radius: 25px;
-
-
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
 }
 
 .profile {
@@ -229,14 +231,16 @@ aside {
 }
 
 .note-list {
-        display: block;
         display: flex;
         flex-direction: column;
         gap: 10px;
         list-style-type: none;
         padding: 20px 0;
-        box-shadow: 0 1px rgba(128, 128, 128, 0.39); 
+        box-shadow: 0 1px rgba(128, 128, 128, 0.39);
         padding-bottom: 50px;
+        flex: 1 1 auto;
+        overflow-y: auto;
+        min-height: 0;
 }
 
 .note-list li {

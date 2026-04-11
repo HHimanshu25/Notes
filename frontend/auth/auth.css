@@ -1,16 +1,16 @@
 /* 🎨 THEME VARIABLES */
 :root {
-    --bg-main: #0b0f14;
-    --bg-card: rgba(15, 20, 25, 0.95);
+    --bg-main-auth: #0b0f14;
+    --bg-card-auth: rgba(15, 20, 25, 0.95);
 
-    --text-primary: #e6edf3;
-    --text-secondary: #9aa4af;
-    --text-error: #ff4d4f;
+    --text-primary-auth: #e6edf3;
+    --text-secondary-auth: #9aa4af;
+    --text-error-auth: #ff4d4f;
 
-    --border-default: rgba(128, 128, 128, 0.3);
+    --border-default-auth: rgba(128, 128, 128, 0.3);
 
-    --accent-gradient: linear-gradient(to bottom, #00d9ff, #0055ff);
-    --accent-solid: #007bff;
+    --accent-gradient-auth: linear-gradient(to bottom, #00d9ff, #0055ff);
+    --accent-solid-auth: #007bff;
 }
 
 /* RESET */
@@ -19,55 +19,65 @@
     padding: 0;
     box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: var(--text-primary);
+    color: var(--text-primary-auth);
     scrollbar-width: none;
 }
 
-.app {
-    width: 100%;
-    min-height: 100vh;
-    background: var(--bg-main);
-}
 
 /* CONTAINER */
 .auth-container {
+    background: var(--bg-main-auth);
     display: flex;
     flex-direction: column;
+    gap: 24px;
     width: 100%;
+    padding: 0 16px 24px;
+    overflow-x: hidden;    
 }
 
 .auth {
-    width: 100%;
+    width: 100%;    
+    max-width: 100%;
     min-height: 100vh;
-    padding: 20px;
-    background-color: var(--bg-card);
+    margin: 0 auto;
+    padding: 28px;
+    background-color: var(--bg-card-auth);
+    border-radius: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
 }
 
 /* HEADINGS */
 .auth-title {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
     font-weight: 500;
-    padding-top: 40px;
+    padding-top: 24px;
+    margin-bottom: 12px;
 }
 
 /* FORM */
 .auth-form {
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
-    gap: 10px;
+    padding-top: 36px;
+    gap: 16px;
+}
+
+.auth-form label {
+    font-size: 1.3rem;
+    color: var(--text-secondary-auth);
+    display: block;
+    margin-bottom: 6px;
 }
 
 /* INPUTS */
 input {
     outline: none;
-    padding: 12px;
-    font-size: 1rem;
+    padding: 16px;
+    font-size: 1.2rem;
     background-color: transparent;
-    border: 1px solid var(--border-default);
-    border-radius: 10px;
+    border: 1px solid var(--border-default-auth);
+    border-radius: 12px;
     transition: 0.3s;
     width: 100%;
 }
@@ -75,16 +85,18 @@ input {
 /* FOCUS EFFECT */
 input:focus {
     border: 1px solid transparent;
-    border-image: var(--accent-gradient) 1;
+    border-image: var(--accent-gradient-auth) 1;
+    background-color: transparent;
 }
+
 
 /* ERROR TEXT */
 .error-email,
 .error-password,
 .error-email-signup,
 .error-password-signup {
-    font-size: 0.8rem;
-    color: var(--text-error);
+    font-size: 0.9rem;
+    color: var(--text-error-auth);
 }
 
 .error-hide {
@@ -96,110 +108,136 @@ input:focus {
     background: none;
     border: none;
     text-align: right;
-    margin-top: 5px;
-    color: var(--text-secondary);
+    margin-top: 8px;
+    color: var(--text-secondary-auth);
+    font-size: 1rem;
 }
 
 /* BUTTONS */
 .btn-login,
 .btn-signup {
     width: 100%;
-    background: var(--accent-gradient);
+    background: var(--accent-gradient-auth);
     border: none;
-    padding: 12px;
-    border-radius: 10px;
+    padding: 16px;
+    border-radius: 12px;
     font-weight: 500;
-    margin-top: 20px;
+    font-size: 1.2rem;
+    margin-top: 24px;
 }
 
 /* FOOTER */
 .auth-footer {
     margin-top: auto;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
 }
 
 /* SWITCH TEXT */
 .auth-switch-login,
 .auth-switch-signup {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-align: center;
-    padding-top: 15px;
-    color: var(--text-secondary);
+    padding-top: 18px;
+    color: var(--text-secondary-auth);
 }
 
 .auth-switch-login span,
 .auth-switch-signup span {
-    color: var(--accent-solid);
+    color: var(--accent-solid-auth);
 }
 
 /* PASSWORD STRENGTH */
 .password-strength {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     text-align: right;
-    color: var(--text-secondary);
+    color: var(--text-secondary-auth);
 }
 
-/* 📱 SMALL DEVICES (350px - 400px) */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
+    .auth-container {
+        gap: 20px;
+        padding: 0 12px 20px;
+    }
+
     .auth {
-        padding: 15px;
+        padding: 24px;
+        border-radius: 20px;
     }
 
     .auth-title {
-        font-size: 1.5rem;
-        padding-top: 25px;
+        font-size: 2.2rem;
+        padding-top: 20px;
+    }
+
+    .auth-form {
+        padding-top: 28px;
+        gap: 14px;
+    }
+
+    .auth-form label {
+        font-size: 1.1rem;
     }
 
     input {
-        padding: 10px;
+        padding: 14px;
+        font-size: 1.1rem;
+    }
+
+    .btn-forgot {
         font-size: 0.9rem;
     }
 
     .btn-login,
     .btn-signup {
-        padding: 10px;
-        font-size: 0.9rem;
+        padding: 14px;
+        font-size: 1.1rem;
     }
 
     .auth-switch-login,
     .auth-switch-signup {
-        font-size: 0.7rem;
-    }
-}   
-
-/* 📱 MEDIUM PHONES (401px - 480px) */
-@media (min-width: 401px) and (max-width: 480px) {
-    .auth {
-        padding: 18px;
+        font-size: 0.85rem;
+        padding-top: 12px;
     }
 
-    .auth-title {
-        font-size: 1.7rem;
-    }
-
-    input {
-        font-size: 0.95rem;
+    .password-strength {
+        font-size: 0.75rem;
     }
 }
 
-/* 📱 LARGE PHONES (481px - 600px) */
-@media (min-width: 481px) and (max-width: 600px) {
+@media (max-width: 420px) {
     .auth {
-        max-width: 420px;
-        margin: 0 auto; /* center layout */
+        padding: 20px;
     }
 
     .auth-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        padding-top: 16px;
+    }
+
+    .auth-form {
+        padding-top: 24px;
+        gap: 12px;
+    }
+
+    .auth-form label {
+        font-size: 1rem;
     }
 
     input {
+        padding: 12px;
         font-size: 1rem;
     }
 
     .btn-login,
     .btn-signup {
+        padding: 12px;
         font-size: 1rem;
+    }
+
+    .auth-switch-login,
+    .auth-switch-signup {
+        font-size: 0.8rem;
+        padding-top: 10px;
     }
 }
 

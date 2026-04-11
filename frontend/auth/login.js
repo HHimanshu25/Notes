@@ -1,5 +1,5 @@
-import { user } from './authAPI.js'
-
+import { renderNotes } from "../notes/note.js";
+import { authlogin, authsignup } from "./authAPI.js";
 export function renderLogin(app) {
     app.innerHTML = `<div class="auth-container">
 
@@ -10,7 +10,7 @@ export function renderLogin(app) {
             <div class="auth-form">
 
                 <label for="login-email">Email</label>
-                <input type="email" id="login-email" placeholder="Email address">
+                <input type="email" id="login-email" placeholder="Email address" autocomplete="on">
                 <span class="error-email error-hide">Invalid email address</span>
 
                 <label for="login-password">Password</label>
@@ -33,7 +33,7 @@ export function renderLogin(app) {
 
         <!-- SIGNUP -->
         <section class="auth auth-signup">
-+
+
             <header class="auth-title">Begin your notes taking adventure with us! Sign Up</header>
 
             <div class="auth-form">
@@ -80,25 +80,30 @@ export function renderLogin(app) {
 
     const emailError2 = app.querySelector('.error-email-signup');
     const passwordError2 = app.querySelector('.error-password-signup');
-const forgotBtn = app.querySelector('.btn-forgot')
+    const forgotBtn = app.querySelector('.btn-forgot')
     const strShow = app.querySelector('.password-strength span');
-
+window.addEventListener('load',()=>{
+    email.value = '';
+    password.value = '';
+})
     // ✅ Switch scroll
+    // Scroll down to signup form
+    // Go to signup
     app.querySelector('.auth-switch-login span')
         .addEventListener('click', () => {
-            window.scrollTo({
-                top: app.appElement.scrollHeight,
+            app.querySelector('.auth-signup').scrollIntoView({
                 behavior: "smooth"
             });
         });
 
+    // Go to login
     app.querySelector('.auth-switch-signup span')
         .addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
+            app.querySelector('.auth-login').scrollIntoView({
                 behavior: "smooth"
             });
         });
+
 
     // ✅ Password strength (FIXED: no inline oninput)
     password2.addEventListener("input", () => {
@@ -149,15 +154,17 @@ const forgotBtn = app.querySelector('.btn-forgot')
             }
             isValid = false
         }
-
+        console.log('bahi chekcing hoo gyi');
         return isValid;
     }
 
 
     // ✅ LOGIN FUNCTION
     app.querySelector('.btn-login').addEventListener('click', () => {
+        login()
+    })
 
-
+    async function login() {
         console.log('bhai tu tension met le me chel rha hu');
         // reset UI
         emailError.classList.add('error-hide')
@@ -171,31 +178,29 @@ const forgotBtn = app.querySelector('.btn-forgot')
         let isValid = validateAuth(emailvalue, passwordvalue, 'login')
         if (!isValid) return;
 
-        // check email exists
-        let findemail = user.find(u => u.email === emailvalue)
-        console.log(findemail);
-        if (!findemail) {
-            emailError.classList.remove('error-hide')
-            emailError.textContent = 'Email not found'
-            return;
-        }
+        let response = await authlogin(emailvalue, passwordvalue)
 
-        // check password match
-        if (passwordvalue === findemail.password) {
-            console.log("Login success (frontend only)")
-        } else {
-            passwordError.classList.remove('error-hide')
-            forgotBtn.style.display = 'none'
-            passwordError.textContent = 'Password is wrong'
+        console.log(response);
+        if (response.success) {
+            alert(response.message)
+            console.log(response.id);
+            localStorage.setItem('token', `${response.id}`)
+            renderNotes(app)          
+            
         }
-    })
+        else {
+            alert(response.message)
+        }
+    }
 
     // ✅ SIGNUP FUNCTION (new)
-    app.querySelector('.btn-signup').addEventListener('click',()=> {
+    app.querySelector('.btn-signup').addEventListener('click', () => {
+        signup()
+    });
 
+    async function signup() {
 
-        let name = app.getElementById('signup-name')
-        if(event) event.preventDefault();
+        let name = app.querySelector('#signup-name')
 
         // reset UI
         emailError2.classList.add('error-hide')
@@ -206,24 +211,35 @@ const forgotBtn = app.querySelector('.btn-forgot')
         let namevalue = name.value
         // 🔁 reuse validation
         let isValid = validateAuth(emailvalue, passwordvalue, 'signup')
-        if(!isValid) return;
+        if (!isValid) return;
 
         // check if user already exists
-        let existingUser = user.find(u => u.email === emailvalue)
+        let response = await authsignup(namevalue, emailvalue, passwordvalue)
 
-        if(existingUser) {
+        console.log(response);
+        if (response.done) {
+            app.querySelector('.auth-login').scrollIntoView({
+                    behavior: "smooth"
+                });
+                email2.value = ''
+                password2.value = ''
+                name.value = ''
+                alert(response.message)
+            }
+        else if (!response.done) {
             emailError2.classList.remove('error-hide')
-            emailError2.textContent = 'Email already exists'
-            return;
+            emailError2.textContent = 'Email already exists'            
+        }
+        else{
+            alert(response.message)
         }
 
-        // add new user
-        user.push({
-            name: namevalue,
-            email: emailvalue,
-            password: passwordvalue
-        })
+        // add new user         
+
 
         console.log("Signup success")
-    })
+    }
+
 }
+
+
