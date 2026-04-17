@@ -13,9 +13,15 @@ app.post('/notes',async(req,res)=>{
         const {title,content,user_id} = req.body        
         if(content!=""){
             await notes.create({title,content,user_id})
-            res.send('note saved')
+            res.status(200).json({
+                done: true,
+                message:'note saved'
+            })
         }else{
-            res.send('please write something')
+            res.status(400).json({
+                done: false,
+                message:'content is empty'
+            })
         }
     }
     catch(error){
@@ -29,8 +35,6 @@ app.post('/notes',async(req,res)=>{
 app.get('/allnotes/:user_id', async (req, res) => {
     try {
         const userId = req.params.user_id;
-        console.log("USER ID:", req.params.user_id);
-
         const note = await notes.find({ user_id: userId });
 
         if (note.length === 0) {
@@ -60,7 +64,10 @@ app.put('/update/:id',async(req,res)=>{
     const note = await notes.findById(req.params.id)
 
     if(!note){
-        return res.send('note not found')
+        res.status(400).json({
+            done:false,
+            message:'note not found'
+        })
     }
 
     note.title = title
@@ -68,7 +75,10 @@ app.put('/update/:id',async(req,res)=>{
 
     await note.save()
 
-    res.send('updated')
+    res.status(200).json({
+        done:true,
+        message:'note is update'
+    })
 })
 
 app.delete('/delete/:id',async(req,res)=>{
