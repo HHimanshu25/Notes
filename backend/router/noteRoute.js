@@ -1,6 +1,5 @@
 import express from "express"
 import notes from "../model/note.js"
-
 const app = express.Router()
 
 app.get('/',(req,res)=>{
@@ -90,5 +89,6 @@ app.delete('/delete',async(req,res)=>{
     await notes.deleteMany()
     res.send('all notes deleted')
 })
+
 
 export default app

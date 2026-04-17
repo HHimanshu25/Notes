@@ -2,6 +2,7 @@ import express from 'express'
 import dbconnect from './config/db.js'
 import auth from './router/authRoute.js'
 import note from './router/noteRoute.js'
+import folder from './router/folderRoute.js'
 import cors from 'cors'
 
 dbconnect()
@@ -14,6 +15,7 @@ app.use(cors())
 
 app.use('/auth',auth)
 app.use('/note',note)
+app.use('/folder',folder)
 
 app.get('/',(req,res)=>{
     res.send('helo world from server')

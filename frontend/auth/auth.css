@@ -85,7 +85,7 @@ input {
 /* FOCUS EFFECT */
 input:focus {
     border: 1px solid transparent;
-    border-image: var(--accent-gradient-auth) 1;
+    /* border-image: var(--accent-gradient-auth) 1; */
     background-color: transparent;
 }
 

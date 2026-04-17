@@ -1,5 +1,5 @@
-import { allnotesapi, noteupdate, notesave } from './noteAPI.js'
-import { nav } from './noteAPI.js'
+import { allnotesapi, noteupdate, notesave, getfolders } from './noteAPI.js'
+import { renderLogin } from '../auth/login.js'
 
 export function renderNotes(app) {
   app.innerHTML = `
@@ -30,7 +30,7 @@ export function renderNotes(app) {
                 <li><span class="material-symbols-outlined">work</span>Work</li>
                 <li><span class="material-symbols-outlined">lightbulb</span>Idea</li>
                 <li><span class="material-symbols-outlined">Favorite</span>Favorites</li>
-                <li><span class="material-symbols-outlined">delete</span>Trash</li>
+                <li><span class="material-symbols-outlined">delete</span>log out</li>
             </ul>
             <div class="setting"><span
                     class="material-symbols-outlined setting-icon">settings</span><span>Setting</span></div>
@@ -38,12 +38,11 @@ export function renderNotes(app) {
     </aside>
     <nav class="nav">
         <!-- <div class="folder folder1 active-folder">Notes</div>
-        <div class="folder folder2 " data-id="1">work</div> -->        
+        <div class="folder folder2 " data-id="1">work</div> -->                
     </nav>
-    <main>
-        <div class="notes-list">
 
-        
+    <main>
+        <div class="notes-list">        
 
         </div>
 
@@ -66,6 +65,8 @@ export function renderNotes(app) {
   const liveNotePanel = document.querySelector('.live-note')
   const current_title = document.querySelector('.current-note-title')
   const current_content = document.querySelector('.current-note-content')
+  const logout = document.querySelector('.note-list').children[4]
+
 
   // Toggle aside menu
   document.querySelector('.menu-acces').addEventListener('click', () => {
@@ -101,8 +102,16 @@ export function renderNotes(app) {
   })
 
 
+  // logout button
+
+  logout.addEventListener('click', () => {
+    localStorage.removeItem('token')
+    renderLogin(app)
+  })
 
   // Folder selection
+
+
   document.body.addEventListener('click', (e) => {
     const folderElement = e.target.closest('.folder')
     if (!folderElement) return
@@ -113,6 +122,52 @@ export function renderNotes(app) {
     folderElement.classList.add('active-folder')
     folder(folderElement.textContent)
   })
+
+
+  async function getfolder() {
+    let count = 2;
+    document.querySelector('.nav').innerHTML = ''
+    let html = '<div class="folder" data-id="0">+</div>    <div class="folder" data-id="1">Notes</div>'
+    
+    // let nav = await getfolders()
+    // if(nav.length != 0){
+    //   nav.forEach(folder => {
+    //     html += `
+    //     <div class="folder" data-id="${count}">${folder.title}</div>`
+    //     ++count;
+    //     console.log('me to abh bhi chel rha hu');
+    //   });
+    // }
+    document.querySelector('.nav').innerHTML = html
+    document.querySelector('.nav').children[1].classList.add('active-folder')
+  }
+
+  getfolder()
+
+  function folder(name) {
+    let html = document.querySelector('.notes-list').innerHTML = ''
+    data.forEach(note => {
+      if (note.folder == `${name}`) {
+        html += `
+      <div class="note" data-id="${note.id}">
+      <div class="note-title" >${note.title}</d
+        document.querySelector('.notes-list').iv>
+      <p class="note-content">${note.content}</p>
+      <div class="note-date">${note.date}</div>
+      </div>`
+      }
+      else if (name == 'Notes') {
+        allnote()
+      }
+      else {
+        html = 'Note not found'
+      }
+
+    });
+  }
+
+
+  // current note
 
   document.querySelector('.notes-list').addEventListener('click', (e) => {
 
@@ -147,11 +202,11 @@ export function renderNotes(app) {
 
   async function loadnote() {
     data = await allnotesapi();
-    console.log(data);
+    // console.log(data);   
     let count = 0;
     let html = '';
     data.forEach(note => {
-      let date = note.date.split('T')[0]      
+      let date = note.date.split('T')[0]
       html += `
          <div class="note" data-id="${count}${note._id}">
                 <div class="note-title" >${note.title}</div>
@@ -162,16 +217,16 @@ export function renderNotes(app) {
     });
     document.querySelector('.notes-list').innerHTML = html;
     await copydata()
-    console.log('i am call');
+    // console.log('i a fro backend data');
   }
   
-  window.addEventListener('load', () => {
     loadnote()
-  })
   
-  function allnote() {    
+
+  function allnote() {
     let html;
-    data.forEach(note => {      
+    let count = 0;
+    data.forEach(note => {  
       html += `
          <div class="note" data-id="${count}${note._id}">
                 <div class="note-title" >${note.title}</div>
@@ -182,98 +237,78 @@ export function renderNotes(app) {
     });
     document.querySelector('.notes-list').innerHTML = html;
     copydata()
-    console.log('i am call');
+    // console.log('mujh array ko kisi ne call hi nhi kiya');
   }
 
   let data2;
   async function copydata() {
 
     data2 = await JSON.parse(JSON.stringify(data))
-
+    // console.log(data2);
+    
     data2.forEach(note => {
       note.title = note.title.toLocaleLowerCase()
       note.content = note.content.toLocaleLowerCase()
     });
-
+    // console.log(data2);
+    
   }
+  // console.log('kya hai');
+  // setTimeout(() => {
+  //   // console.log(data);
+  //   console.log(data2);
+    
+  // }, 5000);
 
   document.querySelector(".search_bar").addEventListener("input", () => {
     let ss = document.querySelector('.search_bar').value.toLocaleLowerCase();
     let tt = data2.filter(u => u.title.includes(ss))
+    // console.log(tt);
     document.querySelector('.notes-list').innerHTML = ''
     tt.forEach(note => {
       document.querySelector('.notes-list').innerHTML += `
          <div class="note">
-                <div class="note-title">${data[note.id].title}</div>
-                <p class="note-content">${data[note.id].content}</p>
-                <div class="note-date">${data[note.id].date}</div>
+                <div class="note-title">${note.title}</div>
+                <p class="note-content">${note.content}</p>
+                <div class="note-date">${note.date}</div>
             </div>`
 
     });
   });
 
-
-
-  function getfolder() {
-
-    document.querySelector('.nav').innerHTML = ''
-    nav.forEach(folder => {
-      document.querySelector('.nav').innerHTML += `
-          <div class="folder" data-id="${folder.id}">${folder.name}</div>`
-
-    });
-  }
-
-  getfolder()
-
-
-  function folder(name) {
-    document.querySelector('.notes-list').innerHTML = ''
-    data.forEach(note => {
-      if (note.folder == `${name}`) {
-        innerHTML += `
-      <div class="note" data-id="${note.id}">
-      <div class="note-title" >${note.title}</d
-        document.querySelector('.notes-list').iv>
-      <p class="note-content">${note.content}</p>
-      <div class="note-date">${note.date}</div>
-      </div>`
-      }
-
-    });
-  }
+  // note save and update code
 
   async function saveNote() {
-    console.log('saveNote called');
-    
+    // console.log('saveNote called');
+
     if (current_content.textContent.trim() === '') return;
-    
+
     // 🔵 UPDATE EXISTING NOTE
     if (currentNoteId != null) {
-      
-      console.log(data);
+
+      // console.log(data);
       currentNoteId = currentNoteId.slice(1)
-      
+
       let note = data.find(n => n._id == currentNoteId);
-      console.log(note);
+      // console.log(note);
 
       if (!note) return;
-      console.log('bhai note mil gya');
+      // console.log('bhai note mil gya');
       // Check if content changed
       if (
         note.title !== current_title.value ||
         note.content !== current_content.textContent
       ) {
         note.title = current_title.value;
-        note.content = current_content.textContent;                
+        note.content = current_content.textContent;
 
         await noteupdate(note.title, note.content, currentNoteId)
 
-        console.log('Note updated');
-console.log(data);
-         allnote()
+        // console.log('Note updated');
+        console.log(data);
+        allnote()
       } else {
-        console.log('No changes detected');
+        // console.log('No changes detected');
       }
 
     }
@@ -283,14 +318,11 @@ console.log(data);
       let newnote_title = current_title.value
       let newnote_content = current_content.textContent
       let tt = await notesave(newnote_title, newnote_content)
-      console.log(tt);
+      // console.log(tt);
       loadnote(); // re-render UI
     }
 
-    console.log('yha tak to ye aagya hai ');
+    // console.log('yha tak to ye aagya hai ');
   }
 
-  window.addEventListener('popstate', () => {
-    alert('you going back')
-  })
 }
