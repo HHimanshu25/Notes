@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import express from 'express'
 import dbconnect from './config/db.js'
 import auth from './router/authRoute.js'
@@ -5,8 +6,9 @@ import note from './router/noteRoute.js'
 import folder from './router/folderRoute.js'
 import cors from 'cors'
 
+dotenv.config()
 dbconnect()
-const port = 3000
+const port = process.env.PORT
 const app = express()
 
 app.use(express.json());
@@ -23,5 +25,5 @@ app.get('/',(req,res)=>{
 
 
 app.listen(port, ()=>{
-console.log(`app running on port : port`)
+console.log(`app running on port : ${port}`)
 });

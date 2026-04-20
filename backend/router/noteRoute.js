@@ -1,37 +1,39 @@
+import dotenv from 'dotenv'
 import express from "express"
 import notes from "../model/note.js"
+import jwt from 'jsonwebtoken'
 const app = express.Router()
 
-app.get('/',(req,res)=>{
+dotenv.config()
+
+const authMiddleware = (req, res, next) => {
+    try {   
+        const authHeader = req.headers.authorization;
+
+
+        if (!authHeader || !authHeader.headers.authorization) {
+            return res.status(401).send("No token")
+        }
+
+        const token = authHeader.split(" ")[1]
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+        req.user = decode;
+        next()
+    }
+
+
+    catch (err) {
+        res.status(401).send("Invalid token")
+    }
+}
+
+app.get('/', (req, res) => {
     res.send('hello from noteroute')
 })
 
-app.post('/notes',async(req,res)=>{
-    try{
 
-        const {title,content,user_id} = req.body        
-        if(content!=""){
-            await notes.create({title,content,user_id})
-            res.status(200).json({
-                done: true,
-                message:'note saved'
-            })
-        }else{
-            res.status(400).json({
-                done: false,
-                message:'content is empty'
-            })
-        }
-    }
-    catch(error){
-        res.json({
-            message:'something went wrong',
-            error:error
-        })
-    }
-})
-
-app.get('/allnotes/:user_id', async (req, res) => {
+app.get('/allnotes/:user_id',authMiddleware, async (req, res) => {
     try {
         const userId = req.params.user_id;
         const note = await notes.find({ user_id: userId });
@@ -47,25 +49,50 @@ app.get('/allnotes/:user_id', async (req, res) => {
     }
 });
 
-app.get('/getnotes/:id',async(req,res)=>{
+app.post('/notes', async (req, res) => {
+    try {
+
+        const { title, content, user_id } = req.body
+        if (content != "") {
+            await notes.create({ title, content, user_id })
+            res.status(200).json({
+                done: true,
+                message: 'note saved'
+            })
+        } else {
+            res.status(400).json({
+                done: false,
+                message: 'content is empty'
+            })
+        }
+    }
+    catch (error) {
+        res.json({
+            message: 'something went wrong',
+            error: error
+        })
+    }
+})
+
+app.get('/getnotes/:id', async (req, res) => {
     const note = await notes.findById(req.params.id)
 
-    if(!note){
+    if (!note) {
         return res.send('note not found')
     }
 
     res.json(note)
 })
 
-app.put('/update/:id',async(req,res)=>{
-    const {title,content} = req.body
+app.put('/update/:id', async (req, res) => {
+    const { title, content } = req.body
 
     const note = await notes.findById(req.params.id)
 
-    if(!note){
+    if (!note) {
         res.status(400).json({
-            done:false,
-            message:'note not found'
+            done: false,
+            message: 'note not found'
         })
     }
 
@@ -75,17 +102,17 @@ app.put('/update/:id',async(req,res)=>{
     await note.save()
 
     res.status(200).json({
-        done:true,
-        message:'note is update'
+        done: true,
+        message: 'note is update'
     })
 })
 
-app.delete('/delete/:id',async(req,res)=>{
+app.delete('/delete/:id', async (req, res) => {
     await notes.findByIdAndDelete(req.params.id)
     res.send('note deleted')
 })
 
-app.delete('/delete',async(req,res)=>{
+app.delete('/delete', async (req, res) => {
     await notes.deleteMany()
     res.send('all notes deleted')
 })

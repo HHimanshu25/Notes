@@ -1,30 +1,33 @@
+import dotenv from 'dotenv'
 import express from 'express'
 import bcrypt from 'bcrypt'
 import user from '../model/user.js'
+import jwt from 'jsonwebtoken'
 
 const app = express.Router()
+dotenv.config()
 
 app.get('/', (req, res) => {
     res.status(200).send('hello from auth')
 })
 
 app.post('/register', async (req, res) => {
-    try {        
+    try {
         const { name, email, password } = req.body
         const check = await user.findOne({ email })
         if (!check) {
             const hashpassword = await bcrypt.hash(password, 10)
             const User = await user.create({ name, email, password: hashpassword })
-            
+
             res.status(201).json({
                 done: true,
-                message:'you are signup suceessfully'
+                message: 'you are signup suceessfully'
             })
         }
         else {
             res.json({
                 done: false,
-                message:'id is already exist'
+                message: 'id is already exist'
             })
         }
     }
@@ -48,20 +51,31 @@ app.post('/login', async (req, res) => {
 
     const valid = await bcrypt.compare(password, checkemail.password);
 
-    if (!valid) {
+    if (valid) {
+
+        const token = jwt.sign(
+            { id: user._id , email:user.email},
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        )
+        res.json({
+            success: true,
+            message: "You are logged in",
+            user: checkemail.name,
+            email: checkemail.email,
+            id: checkemail.id,
+            toke: token
+        
+        });
+    }
+    else{
+
         return res.json({
             success: false,
             message: "Wrong password"
         });
     }
 
-    res.json({
-        success: true,
-        message: "You are logged in",
-        user: checkemail.name,
-        email:checkemail.email,
-        id:checkemail.id
-    });
 });
 
 export default app
