@@ -2,8 +2,14 @@ const NOTE_API   = "http://localhost:3000/note"
 const FOLDER_API = "http://localhost:3000/folder"
 
 export async function allnotesapi() {  
-  let user_id = localStorage.getItem('token')      
-  let data = await fetch(`${NOTE_API}/allnotes/${user_id}`)  
+  let token = localStorage.getItem('toke')      
+  let user_id = localStorage.getItem('user_id')      
+  let data = await fetch(`${NOTE_API}/allnotes/${user_id}`,
+    {
+      method:"GET",
+      "Authorization": `Bearer ${token}`
+    }
+  )  
 // console.log('data is come',data);
   return data.json();  
 }
@@ -23,11 +29,13 @@ export async function noteupdate(title, content,id) {
 }
 
 export async function notesave(title, content) {
-  let user_id = localStorage.getItem('token')  
+  let token = localStorage.getItem('toke')      
+  let user_id = localStorage.getItem('user_id')      
    let data = await fetch(`${NOTE_API}/notes`, {    
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     },    
     body: JSON.stringify({
       title,

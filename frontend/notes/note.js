@@ -1,6 +1,5 @@
 import { allnotesapi, noteupdate, notesave, getfolders } from './noteAPI.js'
-import { renderLogin } from '../auth/login.js'
-
+import { renderLogin } from '../auth/login.js'  
 export function renderNotes(app) {
   app.innerHTML = `
 <div class="note-container">
@@ -129,15 +128,15 @@ export function renderNotes(app) {
     document.querySelector('.nav').innerHTML = ''
     let html = '<div class="folder" data-id="0">+</div>    <div class="folder" data-id="1">Notes</div>'
     
-    // let nav = await getfolders()
-    // if(nav.length != 0){
-    //   nav.forEach(folder => {
-    //     html += `
-    //     <div class="folder" data-id="${count}">${folder.title}</div>`
-    //     ++count;
-    //     console.log('me to abh bhi chel rha hu');
-    //   });
-    // }
+    let nav = await getfolders()
+    if(!nav){
+      nav.forEach(folder => {
+        html += `
+        <div class="folder" data-id="${count}">${folder.title}</div>`
+        ++count;
+        console.log('me to abh bhi chel rha hu');
+      });
+    }
     document.querySelector('.nav').innerHTML = html
     document.querySelector('.nav').children[1].classList.add('active-folder')
   }
@@ -319,7 +318,7 @@ export function renderNotes(app) {
       let newnote_content = current_content.textContent
       let tt = await notesave(newnote_title, newnote_content)
       // console.log(tt);
-      loadnote(); // re-render UI
+      loadnote(); // re-renderx UI
     }
 
     // console.log('yha tak to ye aagya hai ');
