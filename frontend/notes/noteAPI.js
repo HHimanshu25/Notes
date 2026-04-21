@@ -1,26 +1,29 @@
-const NOTE_API   = "http://localhost:3000/note"
+const NOTE_API = "http://localhost:3000/note"
 const FOLDER_API = "http://localhost:3000/folder"
 
-export async function allnotesapi() {  
-  let token = localStorage.getItem('toke')      
-  let user_id = localStorage.getItem('user_id')      
-  let data = await fetch(`${NOTE_API}/allnotes/${user_id}`,
+export async function allnotesapi() {
+  let token = localStorage.getItem('token')
+  let userId = localStorage.getItem('user_id')
+  let response = await fetch(`${NOTE_API}/allnotes`,
     {
-      method:"GET",
-      "Authorization": `Bearer ${token}`
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
     }
-  )  
-// console.log('data is come',data);
-  return data.json();  
+  )
+  // console.log('data is come',data);
+  return response.json();
 }
 
-export async function noteupdate(title, content,id) {
+export async function noteupdate(title, content, id) {
   let data = await fetch(`${NOTE_API}/update/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ 
+    body: JSON.stringify({
       title,
       content
     })
@@ -29,38 +32,36 @@ export async function noteupdate(title, content,id) {
 }
 
 export async function notesave(title, content) {
-  let token = localStorage.getItem('toke')      
-  let user_id = localStorage.getItem('user_id')      
-   let data = await fetch(`${NOTE_API}/notes`, {    
+  let token = localStorage.getItem('token')  
+  let data = await fetch(`${NOTE_API}/notes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
-    },    
+    },
     body: JSON.stringify({
       title,
-      content,
-      user_id
+      content      
     })
   })
   let response = await data.json()
-  if(response.message){
-    console.log(response.error);
+  if (response.message) {
+    console.log(response.message);
   }
-  else{
+  else {
     console.log(response);
   }
-  
+
 }
 
 export async function newfolder(name) {
   let title = name;
-  let res = await fetch(`${FOLDER_API}/save`,{
-    method:"POST",
-    headers:{
+  let res = await fetch(`${FOLDER_API}/save`, {
+    method: "POST",
+    headers: {
       "Content-Type": "application/json"
     },
-    body:JSON.stringify({
+    body: JSON.stringify({
       title
     })
   })

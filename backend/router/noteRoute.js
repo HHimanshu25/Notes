@@ -7,11 +7,11 @@ const app = express.Router()
 dotenv.config()
 
 const authMiddleware = (req, res, next) => {
-    try {   
+    try {
         const authHeader = req.headers.authorization;
 
-
-        if (!authHeader || !authHeader.headers.authorization) {
+        console.log('ye yaha tak aagya');
+        if (!authHeader) {
             return res.status(401).send("No token")
         }
 
@@ -19,12 +19,14 @@ const authMiddleware = (req, res, next) => {
         const decode = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = decode;
+        console.log(req.user);
         next()
     }
 
 
     catch (err) {
         res.status(401).send("Invalid token")
+        console.log('invalid token');
     }
 }
 
@@ -33,9 +35,10 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/allnotes/:user_id',authMiddleware, async (req, res) => {
+app.get('/allnotes', authMiddleware, async (req, res) => {
     try {
-        const userId = req.params.user_id;
+        const userId = req.user.id;
+        console.log(userId);
         const note = await notes.find({ user_id: userId });
 
         if (note.length === 0) {
@@ -49,10 +52,10 @@ app.get('/allnotes/:user_id',authMiddleware, async (req, res) => {
     }
 });
 
-app.post('/notes', async (req, res) => {
+app.post('/notes', authMiddleware, async (req, res) => {
     try {
-
-        const { title, content, user_id } = req.body
+        const user_id = req.user.id
+        const { title, content } = req.body
         if (content != "") {
             await notes.create({ title, content, user_id })
             res.status(200).json({

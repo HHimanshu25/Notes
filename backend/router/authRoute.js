@@ -54,7 +54,7 @@ app.post('/login', async (req, res) => {
     if (valid) {
 
         const token = jwt.sign(
-            { id: user._id , email:user.email},
+            { id: checkemail._id , email:checkemail.email},
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         )
@@ -64,7 +64,7 @@ app.post('/login', async (req, res) => {
             user: checkemail.name,
             email: checkemail.email,
             id: checkemail.id,
-            toke: token
+            token: token
         
         });
     }
