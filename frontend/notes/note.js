@@ -1,5 +1,5 @@
-import { allnotesapi, noteupdate, notesave, getfolders } from './noteAPI.js'
-import { renderLogin } from '../auth/login.js'  
+import { allnotesapi, noteupdate, notesave, getfolders, delenoteapi } from './noteAPI.js'
+import { renderLogin } from '../auth/login.js'
 export function renderNotes(app) {
   app.innerHTML = `
 <div class="note-container">
@@ -127,9 +127,9 @@ export function renderNotes(app) {
     let count = 2;
     document.querySelector('.nav').innerHTML = ''
     let html = '<div class="folder" data-id="0">+</div>    <div class="folder" data-id="1">Notes</div>'
-    
+
     let nav = await getfolders()
-    if(!nav){
+    if (!nav) {
       nav.forEach(folder => {
         html += `
         <div class="folder" data-id="${count}">${folder.title}</div>`
@@ -148,9 +148,8 @@ export function renderNotes(app) {
     data.forEach(note => {
       if (note.folder == `${name}`) {
         html += `
-      <div class="note" data-id="${note.id}">
-      <div class="note-title" >${note.title}</d
-        document.querySelector('.notes-list').iv>
+      <div class="note" data-id="${note.id}">      
+      <div class="note-title" >${note.title}</div>
       <p class="note-content">${note.content}</p>
       <div class="note-date">${note.date}</div>
       </div>`
@@ -174,6 +173,7 @@ export function renderNotes(app) {
     if (!Note) return;
 
     let id = Note.dataset.id;
+    console.log(id);
     // id = id[0]
     currentnote(id);
   })
@@ -208,9 +208,10 @@ export function renderNotes(app) {
       let date = note.date.split('T')[0]
       html += `
          <div class="note" data-id="${count}${note._id}">
-                <div class="note-title" >${note.title}</div>
-                <p class="note-content">${note.content}</p>
-                <div class="note-date">${date}</div>
+         <button class="delete-notes">x</button>
+         <div class="note-title" >${note.title}</div>
+         <p class="note-content">${note.content}</p>
+         <div class="note-date">${date}</div>
             </div>`
       ++count;
     });
@@ -218,16 +219,17 @@ export function renderNotes(app) {
     await copydata()
     // console.log('i a fro backend data');
   }
-  
-    loadnote()
-  
+
+  loadnote()
+
 
   function allnote() {
     let html;
     let count = 0;
-    data.forEach(note => {  
+    data.forEach(note => {
       html += `
          <div class="note" data-id="${count}${note._id}">
+         <button class="delete-notes">x</button>
                 <div class="note-title" >${note.title}</div>
                 <p class="note-content">${note.content}</p>
                 <div class="note-date">${note.date}</div>
@@ -244,19 +246,19 @@ export function renderNotes(app) {
 
     data2 = await JSON.parse(JSON.stringify(data))
     // console.log(data2);
-    
+
     data2.forEach(note => {
       note.title = note.title.toLocaleLowerCase()
       note.content = note.content.toLocaleLowerCase()
     });
     // console.log(data2);
-    
+
   }
   // console.log('kya hai');
   // setTimeout(() => {
   //   // console.log(data);
   //   console.log(data2);
-    
+
   // }, 5000);
 
   document.querySelector(".search_bar").addEventListener("input", () => {
@@ -324,4 +326,17 @@ export function renderNotes(app) {
     // console.log('yha tak to ye aagya hai ');
   }
 
+
+  async function deletnote() {
+
+    currentNoteId = currentNoteId.slice(1)
+
+    let note = data.find(n => n._id == currentNoteId)
+
+    if (!note) return;
+
+    await delenoteapi(currentNoteId)
+  }
+  
 }
+

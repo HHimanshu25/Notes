@@ -32,7 +32,7 @@ export async function noteupdate(title, content, id) {
 }
 
 export async function notesave(title, content) {
-  let token = localStorage.getItem('token')  
+  let token = localStorage.getItem('token')
   let data = await fetch(`${NOTE_API}/notes`, {
     method: "POST",
     headers: {
@@ -41,7 +41,7 @@ export async function notesave(title, content) {
     },
     body: JSON.stringify({
       title,
-      content      
+      content
     })
   })
   let response = await data.json()
@@ -75,3 +75,15 @@ export async function getfolders() {
   return await res.json()
 }
 
+export async function delenoteapi(id) {
+  let token = localStorage.getItem('token')
+  let response = await fetch(`${NOTE_API}/delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+  let data = await response.json()
+  console.log(data);
+}

@@ -10,23 +10,20 @@ const authMiddleware = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
 
-        console.log('ye yaha tak aagya');
         if (!authHeader) {
             return res.status(401).send("No token")
         }
 
-        const token = authHeader.split(" ")[1]
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        const token = authHeader.split(" ")[1]        
+        const decode = jwt.verify(token, process.env.JWT_SECRET);        
 
-        req.user = decode;
-        console.log(req.user);
+        req.user = decode;        
         next()
     }
 
 
     catch (err) {
-        res.status(401).send("Invalid token")
-        console.log('invalid token');
+        res.status(401).send("Invalid token")        
     }
 }
 
@@ -37,16 +34,15 @@ app.get('/', (req, res) => {
 
 app.get('/allnotes', authMiddleware, async (req, res) => {
     try {
-        const userId = req.user.id;
-        console.log(userId);
+        const userId = req.user.id;        
         const note = await notes.find({ user_id: userId });
 
         if (note.length === 0) {
             return res.status(404).json({ message: "No notes found" });
         }
 
-        res.json(note);
-        // console.log(note);        
+        res.json(note);        
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -110,15 +106,31 @@ app.put('/update/:id', async (req, res) => {
     })
 })
 
-app.delete('/delete/:id', async (req, res) => {
-    await notes.findByIdAndDelete(req.params.id)
-    res.send('note deleted')
-})
 
-app.delete('/delete', async (req, res) => {
-    await notes.deleteMany()
-    res.send('all notes deleted')
-})
+app.delete('/delete/:noteid', authMiddleware, async (req, res) => {
+    try {
+        let note = await notes.findByIdAndDelete(req.params.noteid);
+
+        if (!note) {
+            return res.status(404).json({
+                done: false,
+                message: 'Note not found'
+            });
+        }
+
+        return res.status(200).json({
+            done: true,
+            message: 'Note deleted successfully'
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            done: false,
+            message: 'Server error while deleting note'
+        });
+    }
+});
+
 
 
 export default app
