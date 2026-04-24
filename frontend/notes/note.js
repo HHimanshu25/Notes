@@ -65,7 +65,7 @@ export function renderNotes(app) {
   const current_title = document.querySelector('.current-note-title')
   const current_content = document.querySelector('.current-note-content')
   const logout = document.querySelector('.note-list').children[4]
-
+  app.querySelector('.user-name').textContent = localStorage.getItem('user_name')
 
   // Toggle aside menu
   document.querySelector('.menu-acces').addEventListener('click', () => {
@@ -168,14 +168,21 @@ export function renderNotes(app) {
   // current note
 
   document.querySelector('.notes-list').addEventListener('click', (e) => {
+    let note = e.target.closest('.note')
+    if (!note) return;
+    let id = note.dataset.id;
 
-    let Note = e.target.closest('.note')
-    if (!Note) return;
+    if (e.target.classList.contains('delete-notes')) {
+      e.stopPropagation();
+      note.remove()
+      deletnote(id)
 
-    let id = Note.dataset.id;
-    console.log(id);
-    // id = id[0]
-    currentnote(id);
+    }
+    else if (e.target.classList.contains('note')) {
+      currentnote(id);
+
+    }
+
   })
 
   let currentNoteId = null;
@@ -204,18 +211,27 @@ export function renderNotes(app) {
     // console.log(data);   
     let count = 0;
     let html = '';
-    data.forEach(note => {
-      let date = note.date.split('T')[0]
-      html += `
-         <div class="note" data-id="${count}${note._id}">
-         <button class="delete-notes">x</button>
-         <div class="note-title" >${note.title}</div>
-         <p class="note-content">${note.content}</p>
-         <div class="note-date">${date}</div>
-            </div>`
-      ++count;
-    });
+    if (data.done) {
+      data = data.note
+      console.log(data);
+      data.forEach(note => {
+        let date = note.date.split('T')[0]
+        html += `
+        <div class="note" data-id="${count}${note._id}">
+        <button class="delete-notes">x</button>
+        <div class="note-title" >${note.title}</div>
+        <p class="note-content">${note.content}</p>
+        <div class="note-date">${date}</div>
+        </div>`
+        ++count;
+      });
+    }
+    else if (!data.done) {
+      console.log(data.message);
+      html = `<div class = "notfound">note not found</div>`
+    }
     document.querySelector('.notes-list').innerHTML = html;
+
     await copydata()
     // console.log('i a fro backend data');
   }
@@ -326,17 +342,29 @@ export function renderNotes(app) {
     // console.log('yha tak to ye aagya hai ');
   }
 
+  // app.addEventListener('click',(e)=>{
+  //   if(e.target.classList.contains('delete-notes'))
+  //     deletnote();
+  // })
 
-  async function deletnote() {
 
-    currentNoteId = currentNoteId.slice(1)
+  async function deletnote(id) {
+    console.log('bhai me deleter funtion or me call ho gyua hui');
+    let noteid = id;
+    noteid = noteid.slice(1)
+    console.log(noteid);
 
-    let note = data.find(n => n._id == currentNoteId)
+    let note = data.find(n => n._id == noteid)
 
     if (!note) return;
 
-    await delenoteapi(currentNoteId)
+    let res = await delenoteapi(noteid)
+    noteid = id[0]
+    if (res.done) {
+      console.log(res.message);
+    }
+
   }
-  
+
 }
 

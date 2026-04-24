@@ -14,16 +14,16 @@ const authMiddleware = (req, res, next) => {
             return res.status(401).send("No token")
         }
 
-        const token = authHeader.split(" ")[1]        
-        const decode = jwt.verify(token, process.env.JWT_SECRET);        
+        const token = authHeader.split(" ")[1]
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = decode;        
+        req.user = decode;
         next()
     }
 
 
     catch (err) {
-        res.status(401).send("Invalid token")        
+        res.status(401).send("Invalid token")
     }
 }
 
@@ -34,15 +34,21 @@ app.get('/', (req, res) => {
 
 app.get('/allnotes', authMiddleware, async (req, res) => {
     try {
-        const userId = req.user.id;        
+        const userId = req.user.id;
         const note = await notes.find({ user_id: userId });
 
         if (note.length === 0) {
-            return res.status(404).json({ message: "No notes found" });
+            return res.status(404).json({
+                done: false,
+                message: "No notes found"
+            });
         }
 
-        res.json(note);        
-        
+        res.json({
+            done: true,
+            note
+        });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

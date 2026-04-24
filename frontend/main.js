@@ -6,7 +6,6 @@ const app = document.getElementById("app");
 // check login state
 function init() {
   const token = localStorage.getItem("token");
-
   if (token) {
     renderNotes(app);
   }
@@ -15,6 +14,5 @@ function init() {
   }
 }
 
-// start app
 init();
 

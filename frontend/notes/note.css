@@ -164,6 +164,12 @@ main {
         color: var(--text-muted);
 
 }
+.notfound{
+        position: absolute;
+        top: 50%;        
+        font-size: 5rem;
+        width: 100%;
+}
 .delete-notes{
         position: absolute;
         right: 20px;
@@ -195,6 +201,7 @@ aside {
         background-color: transparent;
         backdrop-filter: blur(3px);
         transition: transform 0.3s ease;
+        z-index: 2;
 }
 
 .menu-open {
@@ -234,6 +241,7 @@ aside {
 .user-name {
         font-size: 2rem;
         font-weight: 500;
+        text-transform: capitalize;
 }
 
 .profile-manage {

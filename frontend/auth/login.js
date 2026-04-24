@@ -184,7 +184,7 @@ window.addEventListener('load',()=>{
         if (response.success) {
             alert(response.message)
             console.log(response.id);
-            localStorage.setItem('user_id', `${response.id}`)
+            localStorage.setItem('user_name', `${response.user}`)
             localStorage.setItem('token',`${response.token}`)            
             
             console.log(response.id);

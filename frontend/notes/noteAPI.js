@@ -3,7 +3,6 @@ const FOLDER_API = "http://localhost:3000/folder"
 
 export async function allnotesapi() {
   let token = localStorage.getItem('token')
-  let userId = localStorage.getItem('user_id')
   let response = await fetch(`${NOTE_API}/allnotes`,
     {
       method: "GET",
@@ -84,6 +83,5 @@ export async function delenoteapi(id) {
       "Authorization": `Bearer ${token}`,
     }
   })
-  let data = await response.json()
-  console.log(data);
+return await response.json()  
 }
