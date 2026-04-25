@@ -15,7 +15,7 @@ export function renderNotes(app) {
             <input type="search" placeholder="Search" class="search_bar" >
         </div>
     </header>
-    <aside class="aside ">
+    <aside class="aside">
         <div class="menu ">
             <div class="profile">
                 <div class="profile-logo"></div>
@@ -24,13 +24,21 @@ export function renderNotes(app) {
                     <button class="profile-manage">view profile</button>
                 </div>
             </div>
-            <ul class="note-list">
-                <li><span class="material-symbols-outlined">notes</span>All Notes</li>
-                <li><span class="material-symbols-outlined">work</span>Work</li>
-                <li><span class="material-symbols-outlined">lightbulb</span>Idea</li>
-                <li><span class="material-symbols-outlined">Favorite</span>Favorites</li>
-                <li><span class="material-symbols-outlined">delete</span>log out</li>
+            <div class="note-list">
+            <ul class="note-list-folders">            
+               
             </ul>
+                <div>Favorites</div>
+                <div>Recent delete</div>
+                <div>account setting</div>
+                <div>Edit profile</div>
+                <div>Change password</div>
+                <div>Delete account</div>
+                <div>Logout</div>
+                
+               
+                
+            </div>
             <div class="setting"><span
                     class="material-symbols-outlined setting-icon">settings</span><span>Setting</span></div>
         </div>
@@ -64,7 +72,7 @@ export function renderNotes(app) {
   const liveNotePanel = document.querySelector('.live-note')
   const current_title = document.querySelector('.current-note-title')
   const current_content = document.querySelector('.current-note-content')
-  const logout = document.querySelector('.note-list').children[4]
+  // const logout = document.querySelector('.note-list').children[4]
   app.querySelector('.user-name').textContent = localStorage.getItem('user_name')
 
   // Toggle aside menu
@@ -103,10 +111,10 @@ export function renderNotes(app) {
 
   // logout button
 
-  logout.addEventListener('click', () => {
-    localStorage.removeItem('token')
-    renderLogin(app)
-  })
+  // logout.addEventListener('click', () => {
+  //   localStorage.removeItem('token')
+  //   renderLogin(app)
+  // })
 
   // Folder selection
 
