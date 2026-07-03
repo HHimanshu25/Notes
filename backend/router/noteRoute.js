@@ -11,7 +11,9 @@ const authMiddleware = (req, res, next) => {
         const authHeader = req.headers.authorization;
 
         if (!authHeader) {
+            localStorage.removeItem('token')
             return res.status(401).send("No token")
+
         }
 
         const token = authHeader.split(" ")[1]

@@ -190,103 +190,189 @@ footer {
 .active-folder {
         background-color: var(--accent);
 }
-
-aside {
-        height: 100vh;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: -100%;
-        border-radius: 0 10px 10px 0;
-        background-color: transparent;
-        backdrop-filter: blur(3px);
-        transition: transform 0.3s ease;
-        z-index: 2;
+:root{
+    --bg-primary:#181a1f;
+    --bg-secondary:#202328;
+    --bg-hover:#2b2f36;
+    --text:#f5f5f5;
+    --text-light:#b7bcc5;
+    --border:#31343b;
+    --blue:#3b82f6;
+    --red:#ff5b5b;
 }
 
-.menu-open {
-        display: block;
-        transform: translateX(100%);
+aside{
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100vh;
+    backdrop-filter:blur(4px);
+    background:rgba(0,0,0,.15);
+    transition:.35s ease;
+    z-index:2;
 }
 
-.menu {
-        background-color: var(--bg-secondary);
-        width: 320px;
-        height: 100%;
-        color: white;
-        padding-top: 60px;
-        padding-right: 20px;
-        border-radius: 25px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
+.menu-open{
+    transform:translateX(100%);
 }
 
-.profile {
+.menu{
+    width:320px;
+    height:100%;
+    background:var(--bg-secondary);
+    color:var(--text);
 
-        display: flex;
-        align-items: center;
-        gap: 30px;
-        padding: 10px 20px;
-        border-radius: 25px;
-        background-color: rgba(0, 39, 42, 0.4);
+    display:flex;
+    flex-direction:column;
+
+    padding:24px 0;
+
+    border-radius:0 22px 22px 0;
+
+    box-shadow:8px 0 30px rgba(0,0,0,.35);
 }
 
-.profile-logo {
-        background-color: blue;
-        padding: 40px;
-        border-radius: 50%;
+.profile{
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:20px;
+
+    border-bottom:1px solid var(--border);
 }
 
-.user-name {
-        font-size: 2rem;
-        font-weight: 500;
-        text-transform: capitalize;
+.profile-logo{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    flex-shrink:0;
 }
 
-.profile-manage {
-        background-color: transparent;
-        border: none;
-        font-size: 1.3rem;
-        color: white;
+.profile-detail{
+    display:flex;
+    flex-direction:column;
 }
 
-.note-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        list-style-type: none;
-        padding: 20px 0;
-        box-shadow: 0 1px rgba(128, 128, 128, 0.39);
-        padding-bottom: 50px;
-        flex: 1 1 auto;
-        overflow-y: auto;
-        min-height: 0;
+.user-name{
+    font-size:1.8rem;
+    font-weight:700;
+    margin-bottom:5px;
 }
 
-.note-list li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.5rem;
-        padding: 10px;
-        margin: 0 10px;
+.profile-manage{
+    border:none;
+    background:none;
+    color:var(--blue);
+    font-size:.95rem;
+    cursor:pointer;
+    text-align:left;
 }
 
-.note-list li:hover {
-        background-color: var(--bg-card);
-        border-radius: 15px;
+.profile-manage:hover{
+    text-decoration:underline;
 }
 
-.setting {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        gap: 10px;
-        padding: 10px;
-        margin: 0 10px;
-        font-size: 1.5rem;
+.note-list{
 
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:auto;
+
+    padding:18px 10px;
+}
+
+.note-list div{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:14px 16px;
+
+    margin:2px 0;
+
+    border-radius:12px;
+
+    font-size:1rem;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.note-list div:hover{
+
+    background:var(--bg-hover);
+
+    transform:translateX(4px);
+}
+
+.note-list div::after{
+
+    content:"›";
+
+    font-size:1.3rem;
+
+    color:#8d9096;
+}
+
+.note-list div:nth-last-child(2){
+
+    color:var(--red);
+    font-weight:500;
+}
+
+.note-list div:last-child{
+
+    color:var(--blue);
+    font-weight:500;
+}
+
+.setting{
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:18px 20px;
+
+    font-size:1rem;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.setting:hover{
+
+    background:var(--bg-hover);
+}
+
+.setting-icon{
+
+    font-size:24px;
+}
+
+.note-list::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.note-list::-webkit-scrollbar-thumb{
+
+    background:#444;
+
+    border-radius:10px;
 }
 
 .Add-note {
@@ -313,7 +399,7 @@ aside {
 
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         transition: var(--transition);
-        z-index: 2;
+        z-index: 5;
 }
 
 .Add-note:hover {

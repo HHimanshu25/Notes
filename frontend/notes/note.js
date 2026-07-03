@@ -72,7 +72,7 @@ export function renderNotes(app) {
   const liveNotePanel = document.querySelector('.live-note')
   const current_title = document.querySelector('.current-note-title')
   const current_content = document.querySelector('.current-note-content')
-  // const logout = document.querySelector('.note-list').children[4]
+  const logout = document.querySelector('.note-list').children[7]
   app.querySelector('.user-name').textContent = localStorage.getItem('user_name')
 
   // Toggle aside menu
@@ -111,10 +111,10 @@ export function renderNotes(app) {
 
   // logout button
 
-  // logout.addEventListener('click', () => {
-  //   localStorage.removeItem('token')
-  //   renderLogin(app)
-  // })
+  logout.addEventListener('click', () => {
+    localStorage.removeItem('token')
+    renderLogin(app)
+  })
 
   // Folder selection
 
